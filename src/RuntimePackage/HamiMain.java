@@ -13,10 +13,11 @@ import System.Window;
 public class HamiMain {
 
 	@SuppressWarnings("unused")
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		//Dictionary d = new Dictionary();
-		//System.out.println(d.size());
+		Dictionary d = new Dictionary();
+		d.learnUnknownWords();
+		System.out.println(d.size());
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -28,15 +29,25 @@ public class HamiMain {
             }
         });
 		
+		for(WordHash wh : d.getWordHash()){
+			for(Word word : wh.getSet()){
+				System.out.println(word.toString());
+				break;
+			}
+			
+		}
+		
 		while(true){
 			String line = br.readLine();
 			line = line.trim();
 			
-			if(line == "quit")
-				System.exit(0);
+			if(line.equals("exit")) {
+				System.err.println(("Exiting ..."));
+				System.exit(0);	
+			}
 			
 			
-			Word word = null;// = d.getWord(line);
+			Word word = d.getWord(line);
 			if(word == null)
 				System.out.println("Word couldn't be found.");
 			else{
@@ -50,17 +61,7 @@ public class HamiMain {
 				System.out.println();
 			}
 		}
-		
-		/*
-		for(WordHash wh : d.getWordHash()){
-			for(Word word : wh.getSet()){
-				System.out.println(word.toString());
-				break;
-			}
-			
-		}
-		*/
-		
+				
 	}
 
 }
